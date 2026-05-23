@@ -1,0 +1,320 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gossip's Cafe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+      /* ── Keyframe Animations ── */
+      @keyframes fadeInDown {
+        from { opacity: 0; transform: translateY(-20px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeInUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+      @keyframes fadeIn {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+      }
+      @keyframes slideInLeft {
+        from { opacity: 0; transform: translateX(-40px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes slideInRight {
+        from { opacity: 0; transform: translateX(40px); }
+        to   { opacity: 1; transform: translateX(0); }
+      }
+      @keyframes pulse {
+        0%, 100% { transform: scale(1); }
+        50%       { transform: scale(1.04); }
+      }
+      @keyframes navLinkSlide {
+        from { opacity: 0; transform: translateY(-8px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+
+      /* ── Scroll-reveal helper (JS adds .revealed) ── */
+      .reveal {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .reveal.revealed {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .reveal-left {
+        opacity: 0;
+        transform: translateX(-35px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .reveal-left.revealed {
+        opacity: 1;
+        transform: translateX(0);
+      }
+      .reveal-right {
+        opacity: 0;
+        transform: translateX(35px);
+        transition: opacity 0.55s ease, transform 0.55s ease;
+      }
+      .reveal-right.revealed {
+        opacity: 1;
+        transform: translateX(0);
+      }
+
+      /* ── Header ── */
+      header {
+        background-color: rgb(233, 241, 241);
+        color: black;
+        font-size: x-large;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        animation: fadeInDown 0.6s ease both;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        transition: box-shadow 0.3s;
+      }
+      header > div {
+        transition: transform 0.3s ease;
+      }
+      header > div:hover {
+        transform: scale(1.05);
+      }
+      header > ul {
+        display: flex;
+        gap: 10px;
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+      }
+      header > ul > li {
+        cursor: pointer;
+        padding: 6px 12px;
+        border-radius: 6px;
+        transition: background 0.25s ease, color 0.25s ease;
+        animation: navLinkSlide 0.5s ease both;
+      }
+      header > ul > li:nth-child(1) { animation-delay: 0.1s; }
+      header > ul > li:nth-child(2) { animation-delay: 0.2s; }
+      header > ul > li:nth-child(3) { animation-delay: 0.3s; }
+      header > ul > li:hover {
+        background-color: rgba(0,0,0,0.08);
+        color: #2a6d6d;
+      }
+
+      /* ── Hero ── */
+      .s1 {
+        height: 100vh;
+        background-image: url(https://images.pexels.com/photos/8053720/pexels-photo-8053720.jpeg);
+        background-size: 100% 100%;
+        display: flex;
+        align-items: flex-end;
+        color: aliceblue;
+        animation: fadeIn 1s ease both;
+      }
+      .s1 h1 {
+        animation: fadeInUp 0.9s ease 0.3s both;
+      }
+
+      /* ── About sections ── */
+      .s2 {
+        display: flex;
+        gap: 20px;
+        padding: 20px;
+      }
+      .s2 > div {
+        flex-basis: 50%;
+        font-size: 1.5rem;
+      }
+
+      /* ── Images ── */
+      img {
+        width: 100%;
+        height: 100%;
+      }
+      /* Hover zoom on section images (not all imgs) */
+      .s2 > div > img,
+      .card-img {
+        transition: transform 0.4s ease, box-shadow 0.4s ease;
+        border-radius: 6px;
+      }
+      .s2 > div > img:hover,
+      .card-img:hover {
+        transform: scale(1.03);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+      }
+
+      /* ── Cards ── */
+      .card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        border-radius: 10px;
+        overflow: hidden;
+      }
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 12px 28px rgba(0,0,0,0.13);
+      }
+      .card-title {
+        margin-top: 10px;
+      }
+
+      /* ── Services images hover ── */
+      .services-img {
+        transition: transform 0.35s ease, opacity 0.35s ease;
+        border-radius: 8px;
+      }
+      .services-img:hover {
+        transform: scale(1.04);
+        opacity: 0.92;
+      }
+
+      /* ── Special Offer image gentle pulse on hover ── */
+      .offer-img {
+        transition: transform 0.4s ease;
+        border-radius: 8px;
+      }
+      .offer-img:hover {
+        animation: pulse 1s ease infinite;
+      }
+
+      /* ── Section headings ── */
+      section h1 {
+        position: relative;
+        display: inline-block;
+      }
+      section h1::after {
+        content: '';
+        position: absolute;
+        bottom: -4px;
+        left: 0;
+        width: 0;
+        height: 3px;
+        background: #2a6d6d;
+        border-radius: 2px;
+        transition: width 0.4s ease;
+      }
+      section h1:hover::after {
+        width: 100%;
+      }
+
+      /* ── Footer ── */
+      footer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: bisque;
+        padding: 20px;
+        animation: fadeIn 1s ease both;
+      }
+    </style>
+  </head>
+  <body>
+    <header class="px-5">
+      <div><i class="fa-solid fa-bowl-food"></i> GOSSIP'S CAFE</div>
+      <ul>
+        <li>About</li>
+        <li>Menu</li>
+        <li>Contact</li>
+      </ul>
+    </header>
+
+    <div class="s1">
+      <h1><b>GOSSIP'S CAFE</b></h1>
+    </div>
+
+    <section class="s2">
+      <div class="reveal-left">
+        <img src="https://images.pexels.com/photos/4635596/pexels-photo-4635596.png" alt="Cafe interior" />
+      </div>
+      <div class="reveal-right">
+        <h1>About Cafe</h1>
+        <p>Tradition since 1900</p>
+        <p>Welcome to GOSSIP'S Café</p>
+        <p>
+          Founded by VAMSI, our café is a cozy place to relax, enjoy fresh
+          coffee, tasty snacks, and spend quality time with friends and family.
+          We serve happiness in every cup with great taste, warm vibes, and
+          friendly service.
+        </p>
+      </div>
+    </section>
+
+    <section class="s2">
+      <div class="reveal-left">
+        <h1>ABOUT OUR FOOD</h1>
+        <p>TRADITION WAS MADE BY OUR TRADEMARK</p>
+        <p>GOSSIP'S Café'S FOOD</p>
+        <p>
+          At our café, tradition meets taste in the most delightful way. Inspired by regional cuisines and age-old cooking methods, we prepare every dish with care, passion, and authenticity. Our goal is to preserve the beauty of traditional food culture while giving our guests a memorable dining experience filled with flavor, comfort, and happiness.
+        </p>
+      </div>
+      <div class="reveal-right">
+        <img src="https://img.freepik.com/premium-photo/visually-appealing-pizza-promotion-banner-template_1110958-93047.jpg?w=360" alt="Food" />
+      </div>
+    </section>
+
+    <section class="px-5">
+      <h1 class="reveal">OUR SERVICES</h1>
+      <div class="row g-3">
+        <img class="col-4 services-img reveal" style="transition-delay:0.1s"
+          src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/23/ec86a309-9b06-48e2-9adc-35753f06bc0a_Food3BU.png" alt="Service 1">
+        <img class="col-4 services-img reveal" style="transition-delay:0.2s"
+          src="https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto/MERCHANDISING_BANNERS/IMAGES/MERCH/2024/7/23/b6d9b7ab-91c7-4f72-9bf2-fcd4ceec3537_DO3BU.png" alt="Service 2">
+      </div>
+    </section>
+
+    <section class="px-5 mt-5">
+      <h1 class="reveal">OUR SPECIAL OFFER</h1>
+      <div class="row g-1">
+        <img class="offer-img reveal" src="https://b.zmtcdn.com/data/o2_assets/e067a1cf0d3fe27b366402b98b994e9f1716296909.png" alt="Special Offer">
+      </div>
+    </section>
+
+    <section class="px-5 mt-5">
+      <h1 class="reveal">WHAT WE OFFER</h1>
+      <div class="row g-5">
+        <div class="card col-4 p-3 reveal" style="transition-delay:0.05s">
+          <img class="card-img w-100 h-100" src="https://wallpaperaccess.com/full/1158153.jpg" alt="Quick Bites">
+          <h1 class="card-title">QUICK BITES</h1>
+          <div class="card-text">"Coffee first, everything else later. Brewing smiles one cup at a time."</div>
+        </div>
+        <div class="card col-4 p-3 reveal" style="transition-delay:0.15s">
+          <img class="card-img w-100 h-100" src="https://images.freekaamaal.com/post_images/1579175110.png" alt="Indo-Continental">
+          <h1 class="card-title">INDO-CONTINENTAL</h1>
+          <div class="card-text">"Where Indian spices meet continental flavors. A perfect blend of tradition and taste in every bite."</div>
+        </div>
+        <div class="card col-4 p-3 reveal" style="transition-delay:0.25s">
+          <img class="card-img w-100 h-100" src="https://p4.wallpaperbetter.com/wallpaper/834/178/427/dinner-fish-food-wallpaper-preview.jpg" alt="Never Say No Food">
+          <h1 class="card-title">NEVER SAY NO FOOD</h1>
+          <div class="card-text">Our finest food that people never say no to order.</div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      powered by css
+    </footer>
+
+    <script>
+      // Lightweight Intersection Observer for scroll reveal
+      const revealEls = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('revealed');
+            observer.unobserve(entry.target); // animate once
+          }
+        });
+      }, { threshold: 0.15 });
+
+      revealEls.forEach(el => observer.observe(el));
+    </script>
+  </body>
+</html>
