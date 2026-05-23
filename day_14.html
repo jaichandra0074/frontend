@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        let data=new Promise((res,rej)=>{
+            let val=10;
+            if (val==10){
+                res("promise is resolved");
+            }else{
+                rej("promise is rejected");
+            }
+        });
+        data.then((data)=>console.log(data))
+        .catch((err)=>console.log(err))
+
+        async function getdata(){
+            let a = await data
+            console.log(a)
+        }
+        getdata()
+
+        let api = fetch('https://fakestoreapi.com/products/')
+        api.then((data) => data.json())
+        .then((finaldata) => console.log(finaldata))
+        .catch((err) => console.log(err))
+
+        async function getapidata() {
+            let data = await fetch("https://fakestoreapi.com/products/")
+            let finaldata = await data.json()
+            console.log(finaldata)
+        }
+        getapidata()
+    </script>
+    
+</body>
+</html>

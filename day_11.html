@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=<>, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        for(i=5;i<10;i++){
+            console.log(i);
+        }
+        while(true){
+            input=prompt('enter ur menu items')
+            if(input=='done'){
+                break
+            }
+        }
+        let str='hello'
+        for (i in str){
+            console.log(str[i])
+        }
+        let arr=['html','css','js']
+        let obj={name:'john',age:25}
+        for (i in arr){
+            console.log(arr[i])
+        }
+        for (i in obj){
+            console.log(obj[i])
+        }
+        function sum(a,b){
+            console.log(a+b)
+            return 'hello'
+            console.log('hi')
+        }
+        function parent(){
+            let count=0
+            console.log('parent')
+            return function(){
+                count++
+                console.log('child');
+                console.log(count);
+            }
+        }
+        let a=parent()
+        a()
+        a()
+
+        let output=''
+        for (i of students){
+            let grade =''
+            if(i.marks > 75){
+                grade = "A"
+            }
+            else if(i.marks>35){
+                grade = "B"
+            }
+            else{
+                grade = "C"
+            }
+            output+=`<h1> name:${i.name}</h1>
+            <p>marks : ${i.marks}</p>
+            <h3>grade : ${grade}</h3>`
+            
+        }
+    </script>
+</body>
+</html>
